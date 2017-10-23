@@ -1,0 +1,461 @@
+<?xml version="1.0"?>
+<wsdl:definitions name="HelloWorld"
+  targetNamespace="http://codenotfound.com/services/flightsearch"
+  xmlns:tns="http://codenotfound.com/services/flightsearch" xmlns:types="http://codenotfound.com/types/flightsearch"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://codenotfound.com/types/flightsearch"
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+      attributeFormDefault="unqualified" version="1.0">
+
+ 
+    
+    <xsd:element name="flight">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="source" type="xsd:string" />
+            <xsd:element name="destination" type="xsd:string" />
+            <xsd:element name="dteofjourney" type="xsd:string"/>
+             <xsd:element name="preferredAirline" type="xsd:string"/>
+             <xsd:element name="bookingClass" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="flightadv">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="source" type="xsd:string" />
+            <xsd:element name="destination" type="xsd:string" />
+            <xsd:element name="dteofjourney" type="xsd:string"/>
+             <xsd:element name="preferredAirline" type="xsd:string"/>
+             <xsd:element name="bookingClass" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+
+      <!-- <xsd:element name="flightinfo">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="source" type="xsd:string" />
+            <xsd:element name="destination" type="xsd:string" />
+            <xsd:element name="dteofjourney" type="xsd:string"/>
+            <xsd:element name="flightname" type="xsd:string"/>
+            <xsd:element name="fare" type="xsd:double"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element> -->
+      
+      <xsd:element name="FareMasterPriceResponseVO">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="flightindex" type="types:flightIndexVO" minOccurs="0" />
+			<xsd:element name="recommendations" type="types:recommendationVO" minOccurs="0" maxOccurs="unbounded" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      
+      <!-- <xsd:element name="recommendations" type="recommendationVO"> -->
+      <!-- <xsd:element name="recommendationVO"> -->
+				<xsd:complexType name="recommendationVO">
+					<xsd:sequence>
+						<xsd:element name="itemNumber" type="types:ItemNumberVO" minOccurs="0" />
+						<xsd:element name="recPriceInfo" type="types:recPriceInfoVO" minOccurs="0" />
+						<xsd:element name="segmentFlightRef" type="types:segFlightRefVO" minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element name="paxFareProduct" type="types:paxFareProduct" minOccurs="0" />
+					</xsd:sequence>
+				</xsd:complexType>
+			<!-- </xsd:element> -->
+			<!-- <xsd:element name="flightindex" type="flightIndexVO"> -->
+			<!-- <xsd:element name="flightIndexVO"> -->
+				<xsd:complexType name="flightIndexVO">
+					<xsd:sequence>
+						<xsd:element name="requestedSegmentRef" type="types:reqSegmentRefVO" minOccurs="0" />
+						<xsd:element name="groupOfFlights" type="types:groupOfFlightsVO" minOccurs="0" maxOccurs="unbounded" />
+					</xsd:sequence>
+				</xsd:complexType>
+			<!-- </xsd:element> -->
+			<!-- <xsd:element name="requestedSegmentRef" type="reqSegmentRefVO"> -->
+				<xsd:complexType name="reqSegmentRefVO">
+					<xsd:sequence>
+						<xsd:element name="segRef" type="xsd:int" />
+					</xsd:sequence>
+				</xsd:complexType>
+			<!-- </xsd:element> -->
+			<!-- <xsd:element name="groupOfFlights" type="groupOfFlightsVO"> -->
+				<xsd:complexType name="groupOfFlightsVO">
+					<xsd:sequence>
+						<xsd:element name="flightDetails" type="types:flightDetailsVO" minOccurs="0" maxOccurs="unbounded" />
+					</xsd:sequence>
+				</xsd:complexType>
+			<!-- </xsd:element> -->
+
+			<!-- <xsd:element name="flightDetails" type="flightDetailsVO"> -->
+				<xsd:complexType name="flightDetailsVO">
+					<xsd:sequence>
+						<xsd:element name="flightInformation" type="types:flightInfoVO" minOccurs="0" />
+					</xsd:sequence>
+				</xsd:complexType>
+				<!-- </xsd:element> -->
+					<!-- <xsd:element name="flightInformation" type="flightInfoVO"> -->
+						<xsd:complexType name="flightInfoVO">
+							<xsd:sequence>
+								<xsd:element name="productDateTime" type="types:productDateTimeVO" minOccurs="0" />
+								<xsd:element name="location" type="types:locationVO" minOccurs="0" maxOccurs="unbounded" />
+								<xsd:element name="companyId" type="types:companyVO" minOccurs="0" />
+								<xsd:element name="flightOrtrainNumber" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+						</xsd:complexType>
+					<!-- </xsd:element> -->
+
+					<!-- <xsd:element name="productDateTime" type="productDateTimeVO"> -->
+						<xsd:complexType name="productDateTimeVO">
+							<xsd:sequence>
+								<xsd:element name="dateOfDeparture" type="xsd:string" minOccurs="0" />
+								<xsd:element name="timeOfDeparture" type="xsd:string" minOccurs="0" />
+								<xsd:element name="dateOfArrival" type="xsd:string" minOccurs="0" />
+								<xsd:element name="timeOfArrival" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+						</xsd:complexType>
+					<!-- </xsd:element> -->
+					<!-- <xsd:element name="location" type="locationVO"> -->
+						<xsd:complexType name="locationVO">
+							<xsd:sequence>
+								<xsd:element name="locationId" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+						</xsd:complexType>
+					<!-- </xsd:element> -->
+					<!-- <xsd:element name="companyId" type="companyVO"> -->
+						<xsd:complexType name="companyVO">
+							<xsd:sequence>
+								<xsd:element name="marketingCarrier" type="xsd:string" minOccurs="0" />
+								<xsd:element name="operatingCarrier" type="xsd:string" minOccurs="0" />
+								<xsd:element name="alliance" type="xsd:string" minOccurs="0" />
+								<xsd:element name="bookingClass" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+						</xsd:complexType>
+					<!-- </xsd:element> -->
+
+                         <xsd:complexType name="ItemNumberVO">
+							<xsd:sequence>
+								<xsd:element name="itemNumberId" type="types:itemNumIdVO" minOccurs="0" />
+							</xsd:sequence>
+						</xsd:complexType>
+						
+					<!-- <xsd:element name="itemNumberId" type="itemNumIdVO"> -->
+						<xsd:complexType name="itemNumIdVO">
+							<xsd:sequence>
+								<xsd:element name="number" type="xsd:int" />
+							</xsd:sequence>
+						</xsd:complexType>
+						
+						
+					<!-- </xsd:element> -->
+
+					<!-- <xsd:element name="recPriceInfo" type="recPriceInfoVO"> -->
+						<xsd:complexType name="recPriceInfoVO">
+							<xsd:sequence>
+								<xsd:element name="monetaryDetail" type="types:monetaryDetailVO" minOccurs="0" maxOccurs="unbounded" />
+							</xsd:sequence>
+						</xsd:complexType>
+					<!-- </xsd:element> -->
+
+					<!-- <xsd:element name="monetaryDetail" type="monetaryDetailVO"> -->
+						<xsd:complexType name="monetaryDetailVO">
+							<xsd:sequence>
+								<xsd:element name="amount" type="xsd:int" />
+							</xsd:sequence>
+						</xsd:complexType>
+					<!-- </xsd:element> -->
+
+					<!-- <xsd:element name="segmentFlightRef" type="segFlightRefVO"> -->
+						<xsd:complexType name="segFlightRefVO">
+							<xsd:sequence>
+								<xsd:element name="referencingDetail" type="types:refDetailVO" minOccurs="0" />
+							</xsd:sequence>
+						</xsd:complexType>
+					<!-- </xsd:element> -->
+
+					<!-- <xsd:element name="referencingDetail" type="refDetailVO"> -->
+						<xsd:complexType name="refDetailVO">
+							<xsd:sequence>
+								<xsd:element name="refQualifier" type="xsd:string" minOccurs="0" />
+								<xsd:element name="refNumber" type="xsd:int" />
+							</xsd:sequence>
+						</xsd:complexType>
+					<!-- </xsd:element> -->
+
+					<!-- <xsd:element name="paxFareProduct" type="paxFareProduct"> -->
+						<xsd:complexType name="paxFareProduct">
+							<xsd:sequence>
+								<xsd:element name="paxFareDetail" type="types:paxFareDetailVO" minOccurs="0" />
+								<xsd:element name="paxReference" type="types:paxReferVO" minOccurs="0" />
+								<xsd:element name="passengerTaxDetails" type="types:paxTaxDetailsVO" minOccurs="0" />
+								<xsd:element name="fare" type="types:fareVO" minOccurs="0" maxOccurs="unbounded" />
+								<xsd:element name="fareDetails" type="types:fareDetailsVO" minOccurs="0" />
+							</xsd:sequence>
+						</xsd:complexType>
+					<!-- </xsd:element> -->
+
+					<!-- <xsd:element name="paxFareDetail" type="paxFareDetailVO"> -->
+						<xsd:complexType name="paxFareDetailVO">
+							<xsd:sequence>
+								<xsd:element name="paxFareNum" type="xsd:int" />
+								<xsd:element name="totalFareAmount" type="xsd:double" />
+								<xsd:element name="totalTaxAmount" type="xsd:double" />
+								<xsd:element name="codeShareDetails" type="types:CodeShareDetailsVO" minOccurs="0" />
+								<xsd:element name="monetaryDetails" type="types:monetaryDetailVO" minOccurs="0" maxOccurs="unbounded" />
+								<xsd:element name="pricingTicketing" type="types:PricingTktVO" minOccurs="0" />
+							</xsd:sequence>
+						</xsd:complexType>
+					<!-- </xsd:element> -->
+
+					<!-- <xsd:element name="paxReference" type="paxReferVO"> -->
+						<xsd:complexType name="paxReferVO">
+							<xsd:sequence>
+								<xsd:element name="ptc" type="xsd:string" minOccurs="0" />
+								<xsd:element name="traveller" type="types:travellerVO" minOccurs="0" />
+							</xsd:sequence>
+						</xsd:complexType>
+						<!-- </xsd:element> -->
+						<xsd:complexType name="CodeShareDetailsVO">
+							<xsd:sequence>
+								<xsd:element name="transportStageQualifier" type="xsd:string" minOccurs="0" />
+								<xsd:element name="company" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+						</xsd:complexType>
+					
+					<xsd:complexType name="PricingTktVO">
+							<xsd:sequence>
+								<xsd:element name="priceType" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+						</xsd:complexType>
+
+					<!-- <xsd:element name="traveller" type="travellerVO"> -->
+						<xsd:complexType name="travellerVO">
+							<xsd:sequence>
+								<xsd:element name="ref" type="xsd:int" />
+							</xsd:sequence>
+						</xsd:complexType>
+					<!-- </xsd:element> -->
+
+					<!-- <xsd:element name="passengerTaxDetails" type="paxTaxDetailsVO"> -->
+						<xsd:complexType name="paxTaxDetailsVO">
+							<xsd:sequence>
+								<xsd:element name="taxDetails" type="types:TaxDetailsVO" minOccurs="0" maxOccurs="unbounded" />
+							</xsd:sequence>
+						</xsd:complexType>
+					<!-- </xsd:element> -->
+					
+					<xsd:complexType name="TaxDetailsVO">
+							<xsd:sequence>
+								<xsd:element name="rate" type="xsd:double" minOccurs="0"/>
+								<xsd:element name="countryCode" type="xsd:string" minOccurs="0"/>
+								<xsd:element name="type" type="xsd:string" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:complexType>
+
+					<!-- <xsd:element name="fare" type="fareVO"> -->
+						<xsd:complexType name="fareVO">
+							<xsd:sequence>
+								<xsd:element name="pricingMessage" type="types:pricingMessageVO" minOccurs="0" maxOccurs="unbounded" />
+							</xsd:sequence>
+						</xsd:complexType>
+					<!-- </xsd:element> -->
+
+					<!-- <xsd:element name="pricingMessage" type="pricingMessageVO"> -->
+						<xsd:complexType name="pricingMessageVO">
+							<xsd:sequence>
+								<xsd:element name="freeTextQualification" type="types:freeTxtQualVO" minOccurs="0" />
+							</xsd:sequence>
+						</xsd:complexType>
+					<!-- </xsd:element> -->
+
+					<!-- <xsd:element name="freeTextQualification" type="freeTxtQualVO"> -->
+						<xsd:complexType name="freeTxtQualVO">
+							<xsd:sequence>
+								<xsd:element name="textSubjectQualifier" type="xsd:string" minOccurs="0" />
+								<xsd:element name="informationType" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+						</xsd:complexType>
+					<!-- </xsd:element> -->
+
+					<!-- <xsd:element name="fareDetails" type="fareDetailsVO"> -->
+						<xsd:complexType name="fareDetailsVO">
+							<xsd:sequence>
+								<xsd:element name="segmentRef" type="types:SegmentRefVO" minOccurs="0" />
+								<xsd:element name="groupOfFares" type="types:GrpOfFaresVO" minOccurs="0" />
+								<xsd:element name="majCabin" type="types:MajCabinVO" minOccurs="0" />
+							</xsd:sequence>
+						</xsd:complexType>
+						
+						<xsd:complexType name="SegmentRefVO">
+							<xsd:sequence>
+								<xsd:element name="segRef" type="xsd:int" minOccurs="0" />
+							</xsd:sequence>
+						</xsd:complexType>
+						
+						<xsd:complexType name="GrpOfFaresVO">
+							<xsd:sequence>
+								<xsd:element name="productInformation" type="types:ProductInformationVO" minOccurs="0" />
+								<xsd:element name="fareCalculationCodeDetails" type="types:FareCalcCdeDetailsVO" minOccurs="0" />
+							</xsd:sequence>
+						</xsd:complexType>
+						
+						<xsd:complexType name="MajCabinVO">
+							<xsd:sequence>
+								<xsd:element name="bookingClassDetails" type="types:BookClsDetailsVO" minOccurs="0" />
+							</xsd:sequence>
+						</xsd:complexType>
+						
+						<xsd:complexType name="ProductInformationVO">
+							<xsd:sequence>
+								<xsd:element name="cabinProduct" type="types:CabinPdtVO" minOccurs="0" />
+								<xsd:element name="fareProductDetail" type="types:FarePdtDetailVO" minOccurs="0" />
+							</xsd:sequence>
+						</xsd:complexType>
+						
+						<xsd:complexType name="CabinPdtVO">
+							<xsd:sequence>
+								<xsd:element name="rbd" type="xsd:string" minOccurs="0" />
+								<xsd:element name="cabin" type="xsd:string" minOccurs="0" />
+								<xsd:element name="avlStatus" type="xsd:int" minOccurs="0" />
+							</xsd:sequence>
+						</xsd:complexType>
+						
+						<xsd:complexType name="FarePdtDetailVO">
+							<xsd:sequence>
+								<xsd:element name="fareBasis" type="xsd:string" minOccurs="0" />
+								<xsd:element name="passengerType" type="xsd:string" minOccurs="0" />
+								<xsd:element name="fareType" type="xsd:string" minOccurs="0" />
+								<xsd:element name="breakPoint" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+						</xsd:complexType>
+						
+						<xsd:complexType name="FareCalcCdeDetailsVO">
+							<xsd:sequence>
+								<xsd:element name="qualifier" type="xsd:string" minOccurs="0" />
+								<xsd:element name="amount" type="xsd:double" minOccurs="0" />
+							</xsd:sequence>
+						</xsd:complexType>
+						
+						<xsd:complexType name="BookClsDetailsVO">
+							<xsd:sequence>
+								<xsd:element name="designator" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+						</xsd:complexType>
+						
+						
+					<!-- </xsd:element> -->
+      
+    </xsd:schema>
+  </wsdl:types>
+
+  <!-- <wsdl:message name="SayHelloInput">
+    <wsdl:part name="person" element="types:person" />
+  </wsdl:message>
+
+  <wsdl:message name="SayHelloOutput">
+    <wsdl:part name="greeting" element="types:greeting" />
+  </wsdl:message> -->
+  
+  <wsdl:message name="GetFlightInput">
+    <wsdl:part name="flight" element="types:flight" />
+  </wsdl:message>
+  
+  <wsdl:message name="GetFlightInputAdvanced">
+    <wsdl:part name="flightadv" element="types:flightadv" />
+  </wsdl:message>
+
+ <!--  <wsdl:message name="GetFlightOutput">
+    <wsdl:part name="flightinfo" element="types:flightinfo" />
+  </wsdl:message> -->
+  
+  <wsdl:message name="GetFlightOutput">
+    <wsdl:part name="Fare_MasterPricerTravelBoardSearchReply" element="types:FareMasterPriceResponseVO" />
+  </wsdl:message>
+  
+  
+
+  <!-- <wsdl:portType name="HelloWorld_PortType">
+    <wsdl:operation name="sayHello">
+      <wsdl:input message="tns:SayHelloInput" />
+      <wsdl:output message="tns:SayHelloOutput" />
+    </wsdl:operation>
+  </wsdl:portType> -->
+  
+  <wsdl:portType name="FlightSearch_PortType">
+    <wsdl:operation name="getFlight">
+      <wsdl:input message="tns:GetFlightInput" />
+      <wsdl:output message="tns:GetFlightOutput" />
+    </wsdl:operation>
+  </wsdl:portType>
+  
+  <wsdl:portType name="FlightSearch_PortType">
+    <wsdl:operation name="getFlightAdvanced">
+      <wsdl:input message="tns:GetFlightInputAdvanced" />
+      <wsdl:output message="tns:GetFlightOutput" />
+    </wsdl:operation>
+  </wsdl:portType>
+
+  <!-- <wsdl:binding name="HelloWorld_SoapBinding" type="tns:HelloWorld_PortType">
+    <soap:binding style="document"
+      transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="sayHello">
+      <soap:operation
+        soapAction="http://codenotfound.com/services/helloworld/sayHello" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding> -->
+  
+  <wsdl:binding name="FlightSearch_SoapBinding" type="tns:FlightSearch_PortType">
+    <soap:binding style="document"
+      transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getFlight">
+      <soap:operation
+        soapAction="http://codenotfound.com/services/flightsearch/getFlight" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  
+  <wsdl:binding name="FlightSearch_SoapBinding" type="tns:FlightSearch_PortType">
+    <soap:binding style="document"
+      transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getFlightAdvanced">
+      <soap:operation
+        soapAction="http://codenotfound.com/services/flightsearch/getFlightAdvanced" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+
+ <!--  <wsdl:service name="HelloWorld_Service">
+    <wsdl:documentation>Hello World service</wsdl:documentation>
+    <wsdl:port name="HelloWorld_Port" binding="tns:HelloWorld_SoapBinding">
+      <soap:address location="http://localhost:9090/codenotfound/ws/helloworld" />
+    </wsdl:port>
+  </wsdl:service> -->
+  
+   <wsdl:service name="FlightSearch_Service">
+    <wsdl:documentation>Flight Search service</wsdl:documentation>
+    <wsdl:port name="FlightSearch_Port" binding="tns:FlightSearch_SoapBinding">
+      <soap:address location="http://localhost:9090/codenotfound/ws/flightsearch" />
+    </wsdl:port>
+  </wsdl:service>
+
+</wsdl:definitions>
