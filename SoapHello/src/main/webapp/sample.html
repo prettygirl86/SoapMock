@@ -1,0 +1,234 @@
+<!doctype html>
+<html ng-app="deemApp">
+  <head>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-sanitize.js"></script>
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+    <script src="../static/js/example.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+
+<style>
+  .full button span {
+    background-color: limegreen;
+    border-radius: 32px;
+    color: black;
+  }
+  .partially button span {
+    background-color: orange;
+    border-radius: 32px;
+    color: black;
+  }
+  .searchBtn {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+   /*  margin-left: 52%; */
+    margin-top: 10%;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+.imgSize {
+    max-width: 60%;
+}
+.txtFont {
+    font-family: Verdana;
+    font-weight: normal;
+}
+
+.txtStyle {
+	 	   
+    width: 225px;
+    padding: 5px;
+    margin :1 1;    
+    border-radius: 0;
+    
+}
+.headerStyle {
+	font-family: Verdana;
+    font-size: smaller;
+}
+.divbanner{
+	background-image:url("../static/images/Deem_Banner.jpg");
+    width:100%;
+    min-height:119px;
+}
+.selBox{
+width: 60px ;
+ height: 30px ;
+}
+
+.selMultiBox{
+width: 70% ;
+ height: 30px ;
+ margin-left: -6%;
+}
+.divAlign{
+ margin-left: -2%;
+}
+.divPad{
+padding-left: 5%;
+}
+.tableAlign{
+    overflow-x: visible; 
+}
+</style>
+	<div ng-controller="DeemController as user" >
+<br/>
+<br/>
+<br/>
+	
+<div class="container" style =" border:solid .1px black;align:center" >
+<br/>
+		<div class="divbanner"></div>
+			<div ng-show="errorMessage!=''">
+				<div class="alert alert-danger">
+					<strong>{{errorMessage}}</strong>
+				</div>
+			</div>
+			<div class="col-md-8">
+			<div class="row">
+			&nbsp;&nbsp;&nbsp;&nbsp;<label  style =" font-family: Verdana;background-color:#286090; color:white;font-weight:normal ">Single Destination</label>
+			<label  style =" font-family: Verdana;color:blue;font-weight:normal">Multiple Destination</label>
+			</div>
+			<br/>
+			
+			<div class="row">
+				<div class="col-md-4">
+					<label class="headerStyle txtFont" >From</label> 
+				</div>
+				<div class="col-md-3">
+					<label class="headerStyle txtFont" >To</label>
+				</div>
+			</div>
+			
+			<div class="row">
+			<div class="col-md-4">
+				<input type="text" ng-model="source" class="txtStyle">
+			</div>
+			
+			<div class="col-md-4">
+				<input type="text" ng-model="destination" class="txtStyle">
+			</div>
+			</div>
+			
+			
+		
+		<p>
+		</p>
+
+	<div class="row">
+		<div class="col-md-10">
+			<div class="col-md-4 divAlign"> <label class="headerStyle txtFont" >Departure Date </label> </div>
+			<!-- <div class="col-md-3"> <label class="headerStyle" style =" font-family: Verdana;font-weight:normal " >Returning Date</label> </div> -->
+			<div class="col-md-2"> <label class="headerStyle txtFont" >Adult(18+)</label> </div>
+			<div class="col-md-2"> <label class="headerStyle txtFont" >Child(2-17)</label> </div>
+			<div class="col-md-2"> <label class="headerStyle txtFont" >Infant(0-2)</label> </div>
+		
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-10">
+			<div class="col-md-4 divAlign">
+				<p class="input-group">
+						<input type="text" class="form-control" uib-datepicker-popup
+							ng-model="dt" is-open="popup2.opened"
+							datepicker-options="dateOptions" ng-required="true"
+							close-text="Close" /> <span class="input-group-btn">
+							<button type="button" class="btn btn-default" ng-click="open2()">
+								<i class="glyphicon glyphicon-calendar"></i>
+							</button>
+						</span>
+					</p>	
+			</div>
+
+			
+			<div class="col-md-2">
+				<p>
+						 <select  class="selBox"  ng-model="passengerCount.adultCount"
+									ng-options="adultCount for adultCount in adultCountList"></select>
+						</p>
+			
+			</div>
+			<div class="col-md-2">
+			<p>
+						 <select class="selBox" ng-model="passengerCount.childrenCount"
+									ng-options="childrenCount for childrenCount in childrenCountList"></select>
+						</p>
+			</div>
+			<div class="col-md-2">
+			<p>
+						 <select class="selBox"  ng-model="passengerCount.infantCount"
+									ng-options="infantCount for infantCount in infantCountList"></select>
+						</p>
+			</div>
+			
+		</div>
+		</div>
+		
+		
+		<div>
+		<a href="#" ng-click="lowFareSearch=!lowFareSearch">Advanced Options <span class="glyphicon glyphicon-menu-right" ng-show="lowFareSearch"></span>
+		<span class="glyphicon glyphicon-menu-down" ng-show="!lowFareSearch"></span>
+		</a>
+		</div>
+		<span ng-show="!lowFareSearch" class="col-md-5 divAlign">
+		<label class="headerStyle txtFont">Preferred Airline</label>
+		<p class="col-md-12">
+			<select class="selMultiBox" ng-model="airlinePreffered"
+				ng-options="airline for airline  in airlineList"></select>
+					</p>
+					
+					
+				</span>
+				
+		<span ng-show="!lowFareSearch" class="col-md-5 divAlign">
+		<label class="headerStyle txtFont">Preferred Class</label>
+		<p class="col-md-12">
+			<select class="selMultiBox" ng-model="bookingClass"
+				ng-options="bookingclass for bookingclass  in bookingClassList"></select>
+					</p>
+					
+					
+				</span>				
+		
+		</div>
+		
+			<br> </br>
+			<div>
+			
+			<p>
+				<button type="button" class="btn btn-primary float-right searchBtn"
+									ng-click="getFlights()">Search</button>
+		  </p>
+		  </div>
+		<hr>
+			<div class="row" ng-if="flightindex.groupOfFlights.length>0">
+			<div class="table-responsive tableAlign"> 
+				<table class="table">
+				<thead>
+				<tr>
+					<th></th><th>Flight Name</th><th>Flight Code</th><th>Class</th> <th>Source(Departure)</th><th>Destination(Arrival)</th><th>Price Per Seat</th></tr></thead>
+					<tbody>
+					<tr ng-repeat="flight in flightindex.groupOfFlights">
+						<td class="col-md-1 divPad"><img class="imgSize" ng-src="../static/images/{{flight.flightDetails[0].flightInformation.flightOrtrainNumber}}.png"></td>
+						<td>{{flight.flightDetails[0].flightInformation.companyId.marketingCarrier}}</td>						
+						<td>{{flight.flightDetails[0].flightInformation.flightOrtrainNumber}}</td>
+						<td>{{flight.flightDetails[0].flightInformation.companyId.bookingClass}}</td>
+						<td>{{source}} ({{flight.flightDetails[0].flightInformation.productDateTime.timeOfDeparture}})</td>
+						<td>{{destination}} ({{flight.flightDetails[0].flightInformation.productDateTime.timeOfArrival}})</td>
+						<td>{{(recommendation[0].paxFareProduct.paxFareDetail.totalFareAmount)+($index*10.7) | currency}}</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		</div>
+			 
+
+  </body>
+</html>
